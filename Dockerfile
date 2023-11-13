@@ -1,25 +1,20 @@
-# Use the official Node.js 14 image.
-# https://hub.docker.com/_/node
+# Use an official Node.js runtime as a base image
 FROM node:20.9.0
 
-# Create app directory
+# Set the working directory in the container
 WORKDIR /usr/src/app
 
 # Install PM2 globally
-RUN npm install --global pm2
+RUN npm install -g pm2
 
-# Install app dependencies
-# A wildcard is used to ensure both package.json AND package-lock.json are copied
-# where available (npm@5+)
-COPY package*.json ./
-RUN npm install
-
-# Bundle app source
+# Copy all files to the working directory
 COPY . .
 
-# Bind to all network interfaces so that it can be mapped to the host OS
-ENV HOST 0.0.0.0
-EXPOSE 3000
+# Install dependencies and build the application
+RUN npm install && npm run build
 
-# At runtime, this will launch your app using PM2
-CMD ["pm2-runtime", "start", "npm", "--", "start"]
+# Expose the port that your app will run on (adjust based on your application's needs)
+EXPOSE 3333
+
+# Use pm2-runtime to start the Nest.js application in production
+CMD ["pm2-runtime", "start", "ecosystem.config.js"]
