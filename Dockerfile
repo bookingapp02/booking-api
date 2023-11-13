@@ -4,6 +4,10 @@ FROM node:20.9.0
 # Set the working directory in the container
 WORKDIR /usr/src/app
 
+# Install AWS CLI
+RUN apt-get update && \
+    apt-get install -y awscli
+
 # Install PM2 globally
 RUN npm install -g pm2
 
@@ -17,4 +21,6 @@ RUN npm install && npm run build
 EXPOSE 3333
 
 # Use pm2-runtime to start the Nest.js application in production
-CMD ["pm2-runtime", "start", "ecosystem.config.js"]
+# CMD ["pm2-runtime", "start", "ecosystem.config.js"]
+
+CMD ["sh", "-c", "sh ./entrypoint.sh"]
