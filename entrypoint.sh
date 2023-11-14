@@ -4,4 +4,5 @@
 # aws secretsmanager get-secret-value --secret-id your-secret-id --region your-region --output json | jq -r '.SecretString' > /usr/src/app/.env
 
 # Start the app with PM2
-. /usr/src/app/.env && pm2-runtime start ecosystem.config.js
+# . /usr/src/app/.env && pm2-runtime start ecosystem.config.js
+pm2-runtime start ecosystem.config.js
