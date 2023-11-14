@@ -14,6 +14,9 @@ RUN npm install -g pm2
 # Copy all files to the working directory
 COPY . .
 
+# Setting the .env file
+RUN printenv > .env
+
 # Install dependencies and build the application
 RUN npm install && npm run build
 
