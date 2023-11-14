@@ -24,7 +24,7 @@ jobs:
 
     - name: Echo registry
       env:
-        TEST: ${{ steps.login-ecr.outputs.registry }}
+        TEST: ${{ steps.login-ecr.outputs }}
       run: echo $TEST
 
     - name: Build, tag, and push Docker image to Amazon ECR
